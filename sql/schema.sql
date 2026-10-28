@@ -1,0 +1,3 @@
+-- Dinheiro Consciente - Script do banco de dados (MySQL)
+-- Será desenvolvido na ENTREGA 2 (tabelas, chaves primárias e estrangeiras).
+-- Modelagem prevista: usuarios, categorias, transacoes, metas, conteudos, posts, comentarios.
