@@ -2,9 +2,9 @@
 
 > Plataforma web de educação financeira com ferramentas práticas de controle de gastos, metas e uma comunidade de aprendizado.
 
-**Autor:** Bruno da Silva Bastos
-**Curso/Disciplina:** Técnico — Projeto Web
-**Status:** 🚧 Entrega 1 — Problema e estrutura inicial
+- **Autor:** Bruno da Silva Bastos
+- **Curso/Disciplina:** Técnico — Projeto Web
+- **Status:** 🚧 Entrega 1 — Problema e estrutura inicial
 
 ---
 
