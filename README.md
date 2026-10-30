@@ -5,6 +5,7 @@
 - **Autor:** Bruno da Silva Bastos
 - **Curso/Disciplina:** Técnico — Projeto Web
 - **Status:** 🚧 Entrega 1 — Problema e estrutura inicial
+- **Status:** 🚧 Entrega 2 — Banco de dados e autenticação
 
 ---
 
@@ -143,10 +144,13 @@ Visitante → Cadastro/Login → JWT → Painel → Transações / Metas / Conte
 dinheiro-consciente/
 ├── backend/
 │   ├── src/
-│   │   ├── routes/         # Definição das rotas da API
-│   │   ├── controllers/    # Lógica e regras de negócio
-│   │   ├── middlewares/    # Autenticação, autorização, tratamento de erros
-│   │   └── database/       # Conexão com o MySQL
+│   │   ├── routes/         # authRoutes.js, usuarioRoutes.js
+│   │   ├── controllers/    # authController.js, usuarioController.js
+│   │   ├── middlewares/    # auth.js, autorizar.js, errorHandler.js
+│   │   ├── database/       # connection.js (conexão com o MySQL)
+│   │   ├── app.js          # Configuração do Express
+│   │   └── server.js       # Inicialização do servidor
+│   ├── package.json
 │   └── .env.example        # Modelo das variáveis de ambiente
 ├── frontend/
 │   ├── css/
@@ -160,20 +164,79 @@ dinheiro-consciente/
 └── README.md
 ```
 
+## 9. Banco de dados
+
+O banco `dinheiro_consciente` (MySQL) está no arquivo [`sql/schema.sql`](sql/schema.sql).
+
+| Tabela | Descrição | Relacionamentos |
+|---|---|---|
+| `usuarios` | Contas e perfil de acesso (`usuario`, `moderador`, `admin`) | — |
+| `categorias` | Categorias de receitas e despesas | — |
+| `transacoes` | Receitas e despesas dos usuários | FK `usuario_id`, FK `categoria_id` |
+| `limites_categoria` | Limite mensal por categoria | FK `usuario_id`, FK `categoria_id` |
+| `metas` | Metas financeiras | FK `usuario_id` |
+| `conteudos` | Conteúdos educativos | FK `autor_id` |
+| `posts` | Posts da comunidade | FK `usuario_id` |
+| `comentarios` | Comentários dos posts | FK `post_id`, FK `usuario_id` |
+
+## 10. Autenticação e permissões
+
+- Senhas protegidas com hash (**bcryptjs**); nunca são salvas em texto puro.
+- Login gera um **token JWT** (guarda `id` e `perfil`, expira em 2h).
+- `middlewares/auth.js` valida o token; `middlewares/autorizar.js` restringe rotas por perfil.
+- Todo cadastro novo entra como `usuario`; só o `admin` altera perfis.
+
+## 11. Como executar
+
+1. Instale Node.js (LTS) e MySQL 8.
+2. Execute o script `sql/schema.sql` no MySQL.
+3. Em `backend/`, copie `.env.example` para `.env` e preencha com seus dados.
+4. Rode:
+   ```bash
+   cd backend
+   npm install
+   npm run dev
+   ```
+5. Teste em `http://localhost:3000/api/saude`.
+
+6. No arquivo `.env`, defina `DB_PASSWORD` (senha do seu MySQL) e `JWT_SECRET` (uma frase longa e secreta).
+
+### 12. Como testar
+
+1. Cadastre um usuário em `POST /api/auth/cadastro` e faça login em `POST /api/auth/login` para obter o token.
+2. Envie o token no cabeçalho `Authorization: Bearer SEU_TOKEN`.
+3. Para criar um administrador, rode no MySQL:
+   ```sql
+   UPDATE usuarios SET perfil = 'admin' WHERE email = 'seu@email.com';
+   ```
+   e faça login de novo para gerar um token com o novo perfil.
+
+## 13. Rotas da API (Entrega 2)
+
+| Método | Rota | Acesso | Descrição |
+|---|---|---|---|
+| GET | `/api/saude` | Público | Testa se a API está no ar |
+| POST | `/api/auth/cadastro` | Público | Cadastra usuário |
+| POST | `/api/auth/login` | Público | Login, retorna o JWT |
+| GET | `/api/auth/perfil` | Logado | Dados do usuário logado |
+| GET | `/api/usuarios` | Admin | Lista usuários |
+| PUT | `/api/usuarios/:id/perfil` | Admin | Altera o perfil de um usuário |
+
+
 ---
 
-## 9. Cronograma das entregas
+## 14. Cronograma das entregas
 
 | Entrega | Foco | Situação |
 |---|---|---|
 | 1 | Problema, proposta e estrutura inicial | ✅ Entregue |
-| 2 | Banco de dados, cadastro, login e JWT | ⏳ |
+| 2 | Banco de dados, cadastro, login e JWT | ✅ Entregue |
 | 3 | CRUD, integração e permissões | ⏳ |
 | 4 | Projeto completo, documentação e apresentação | ⏳ |
 
 ---
 
-## 10. Referências
+## 15. Referências
 
 - ANBIMA. *Por onde começar: Educação financeira no Brasil*. 2024.
 - Banco Central do Brasil. *Relatório de Letramento Financeiro*. 2025.
