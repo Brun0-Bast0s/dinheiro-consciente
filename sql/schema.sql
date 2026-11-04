@@ -6,7 +6,12 @@
 CREATE DATABASE IF NOT EXISTS dinheiro_consciente
   CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE dinheiro_consciente;
+UPDATE usuarios SET perfil = 'admin' WHERE email = 'bruno@teste.com';
 
+SELECT id, nome, email, perfil FROM usuarios;
+
+SELECT id, nome, email, senha_hash, perfil FROM usuarios;
+ 
 -- Usuarios do sistema (o campo "perfil" define o nivel de acesso)
 CREATE TABLE IF NOT EXISTS usuarios (
   id INT AUTO_INCREMENT PRIMARY KEY,
