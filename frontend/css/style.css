@@ -1,0 +1,235 @@
+/* =====================================================
+   Dinheiro Consciente - Tema branco e azul
+   Substitui todo o conteudo de frontend/css/style.css
+   ===================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap');
+
+:root {
+  --azul-900: #0a2a5e;
+  --azul-700: #1245b5;
+  --azul-600: #1d5de0;
+  --azul-500: #3b82f6;
+  --azul-100: #e3eeff;
+  --azul-50:  #f3f8ff;
+  --branco:   #ffffff;
+  --tinta:    #11284b;
+  --cinza:    #5f7194;
+  --borda:    #d8e5fb;
+  --vermelho: #d64545;
+  --vermelho-claro: #fdeeee;
+  --ambar:    #a8650a;
+  --ambar-claro: #fff5e1;
+  --sombra: 0 1px 2px rgba(18, 69, 181, .06), 0 8px 24px rgba(18, 69, 181, .08);
+  --sombra-forte: 0 12px 32px rgba(18, 69, 181, .22);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: var(--tinta);
+  line-height: 1.55;
+  background:
+    radial-gradient(900px 420px at 85% -80px, #dbe9ff 0%, transparent 70%),
+    var(--azul-50);
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: 'Sora', 'Manrope', sans-serif;
+  color: var(--azul-900);
+  margin: 0 0 .7rem;
+  letter-spacing: -.01em;
+}
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.1rem; }
+a { color: var(--azul-600); font-weight: 600; }
+a:hover { color: var(--azul-700); }
+
+:focus-visible { outline: 3px solid var(--azul-500); outline-offset: 2px; }
+
+/* ---------- Barra superior ---------- */
+.topo {
+  position: sticky; top: 0; z-index: 5;
+  background: linear-gradient(100deg, var(--azul-900) 0%, var(--azul-700) 60%, var(--azul-600) 100%);
+  color: var(--branco);
+  padding: .85rem 1.4rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .6rem;
+  box-shadow: 0 4px 18px rgba(10, 42, 94, .25);
+}
+.topo h1 { font-size: 1.15rem; margin: 0; color: var(--branco); }
+.topo .usuario { display: flex; align-items: center; gap: .75rem; font-size: .95rem; font-weight: 500; }
+.selo {
+  background: rgba(255, 255, 255, .18);
+  border: 1px solid rgba(255, 255, 255, .35);
+  padding: .15rem .7rem; border-radius: 999px;
+  font-size: .8rem; font-weight: 600; text-transform: capitalize;
+}
+
+/* ---------- Estrutura ---------- */
+.container { max-width: 1000px; margin: 1.5rem auto; padding: 0 1rem; }
+
+.card {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-bottom: 1.1rem;
+  box-shadow: var(--sombra);
+}
+
+/* Cartao de login e cadastro */
+.centro {
+  max-width: 430px; margin: 4rem auto;
+  border-top: 5px solid var(--azul-600);
+  padding: 1.8rem;
+  box-shadow: var(--sombra-forte);
+}
+
+/* ---------- Abas ---------- */
+.abas {
+  display: inline-flex; flex-wrap: wrap; gap: .25rem;
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 12px; padding: .3rem;
+  margin-bottom: 1.2rem;
+  box-shadow: var(--sombra);
+}
+.abas button {
+  background: transparent; border: 0; color: var(--cinza);
+  padding: .55rem 1.1rem; border-radius: 9px;
+  cursor: pointer; font: inherit; font-weight: 600; font-size: .93rem;
+  transition: background .15s, color .15s;
+}
+.abas button:hover { background: var(--azul-100); color: var(--azul-700); }
+.abas button.ativa { background: var(--azul-600); color: var(--branco); box-shadow: 0 4px 12px rgba(29, 93, 224, .35); }
+
+/* ---------- Formularios ---------- */
+label { display: block; font-size: .85rem; font-weight: 600; color: var(--azul-700); margin-bottom: .3rem; }
+input, select, textarea {
+  width: 100%; padding: .65rem .8rem;
+  border: 1.5px solid var(--borda); border-radius: 10px;
+  font: inherit; font-size: .95rem; color: var(--tinta); background: var(--branco);
+  transition: border-color .15s, box-shadow .15s;
+}
+input:hover, select:hover { border-color: #b6cdf5; }
+input:focus, select:focus, textarea:focus {
+  outline: none; border-color: var(--azul-600);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, .18);
+}
+.grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: .9rem; align-items: end; }
+.campo { margin-bottom: .9rem; }
+
+/* ---------- Botoes ---------- */
+.btn {
+  display: inline-block; text-align: center; text-decoration: none;
+  background: var(--azul-600); color: var(--branco);
+  border: 0; padding: .65rem 1.3rem; border-radius: 10px;
+  cursor: pointer; font: inherit; font-size: .95rem; font-weight: 700;
+  box-shadow: 0 4px 12px rgba(29, 93, 224, .3);
+  transition: background .15s, transform .1s, box-shadow .15s;
+}
+.btn:hover { background: var(--azul-700); color: var(--branco); }
+.btn:active { transform: translateY(1px); box-shadow: none; }
+.btn.sec { background: var(--azul-100); color: var(--azul-700); box-shadow: none; }
+.btn.sec:hover { background: #cfe1ff; color: var(--azul-900); }
+.btn.perigo { background: var(--vermelho); box-shadow: 0 4px 12px rgba(214, 69, 69, .28); }
+.btn.perigo:hover { background: #b83535; }
+.btn.mini { padding: .35rem .8rem; font-size: .82rem; border-radius: 8px; box-shadow: none; }
+.acoes { display: flex; gap: .45rem; flex-wrap: wrap; }
+
+/* O botao Sair fica legivel sobre o fundo azul da barra */
+.topo .btn.sec { background: rgba(255, 255, 255, .16); color: var(--branco); border: 1px solid rgba(255, 255, 255, .4); }
+.topo .btn.sec:hover { background: rgba(255, 255, 255, .28); }
+
+/* ---------- Tabelas ---------- */
+.tabela-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+th {
+  text-align: left; padding: .65rem .7rem;
+  background: var(--azul-50); color: var(--azul-700);
+  font-weight: 700; font-size: .83rem;
+  border-bottom: 2px solid var(--borda);
+}
+th:first-child { border-top-left-radius: 8px; }
+th:last-child { border-top-right-radius: 8px; }
+td { padding: .65rem .7rem; border-bottom: 1px solid var(--borda); }
+tbody tr:hover { background: var(--azul-50); }
+.receita { color: var(--azul-600); font-weight: 700; }
+.despesa { color: var(--vermelho); font-weight: 700; }
+.vazio { color: var(--cinza); padding: 1rem 0; text-align: center; }
+
+/* ---------- Indicadores do Resumo ---------- */
+.indicadores { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; margin-bottom: 1.1rem; }
+.indicador {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-top: 4px solid var(--azul-600);
+  border-radius: 14px; padding: 1.1rem 1.2rem;
+  box-shadow: var(--sombra);
+}
+.indicador:nth-child(2) { border-top-color: var(--vermelho); }
+.indicador:nth-child(3) { border-top-color: var(--azul-900); }
+.indicador span { display: block; color: var(--cinza); font-size: .88rem; font-weight: 600; }
+.indicador strong { font-family: 'Sora', sans-serif; font-size: 1.6rem; letter-spacing: -.02em; }
+
+/* ---------- Alertas e mensagens ---------- */
+.alerta { padding: .8rem 1rem; border-radius: 10px; margin-bottom: .6rem; font-size: .93rem; font-weight: 500; border: 1px solid transparent; border-left-width: 5px; }
+.alerta.perigo { background: var(--vermelho-claro); color: #8a2323; border-color: #f4c7c7; border-left-color: var(--vermelho); }
+.alerta.aviso { background: var(--ambar-claro); color: var(--ambar); border-color: #f1dcae; border-left-color: #e0a020; }
+.alerta.ok { background: var(--azul-100); color: var(--azul-900); border-color: #c4daff; border-left-color: var(--azul-600); }
+
+#mensagem { position: fixed; top: 4.6rem; right: 1rem; max-width: 350px; z-index: 20; }
+#mensagem .alerta { box-shadow: var(--sombra-forte); animation: entrar .25s ease-out; }
+@keyframes entrar { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Metas ---------- */
+.meta {
+  background: var(--branco);
+  border: 1px solid var(--borda); border-left: 5px solid var(--azul-600);
+  border-radius: 12px; padding: 1rem 1.1rem; margin-bottom: .8rem;
+  box-shadow: var(--sombra);
+}
+.meta-topo { display: flex; justify-content: space-between; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.meta-topo strong { font-family: 'Sora', sans-serif; color: var(--azul-900); }
+.barra { background: var(--azul-100); border-radius: 999px; height: 14px; overflow: hidden; margin: .7rem 0 .45rem; }
+.barra > div { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--azul-500), var(--azul-700)); transition: width .6s ease; }
+.pequeno { color: var(--cinza); font-size: .86rem; }
+
+.oculto { display: none !important; }
+
+/* ---------- Pagina inicial ---------- */
+.card.hero {
+  position: relative; overflow: hidden; text-align: center;
+  padding: 4.5rem 1.5rem; border: 0; border-radius: 20px;
+  background: linear-gradient(135deg, var(--azul-900) 0%, var(--azul-700) 55%, var(--azul-500) 100%);
+  box-shadow: var(--sombra-forte);
+}
+.card.hero::before, .card.hero::after {
+  content: ''; position: absolute; border-radius: 50%;
+  background: rgba(255, 255, 255, .07); pointer-events: none;
+}
+.card.hero::before { width: 340px; height: 340px; top: -140px; right: -90px; }
+.card.hero::after  { width: 220px; height: 220px; bottom: -100px; left: -60px; }
+.hero h2 { position: relative; color: var(--branco); font-size: clamp(1.6rem, 4vw, 2.5rem); max-width: 680px; margin: 0 auto 1rem; line-height: 1.2; }
+.hero p { position: relative; color: #d6e6ff; max-width: 560px; margin: 0 auto 1.8rem; font-size: 1.05rem; }
+.hero .acoes { position: relative; justify-content: center; }
+.hero .btn { background: var(--branco); color: var(--azul-700); padding: .8rem 1.7rem; box-shadow: 0 8px 20px rgba(0, 0, 0, .2); }
+.hero .btn:hover { background: var(--azul-100); }
+.hero .btn.sec { background: transparent; color: var(--branco); border: 2px solid rgba(255, 255, 255, .65); box-shadow: none; }
+.hero .btn.sec:hover { background: rgba(255, 255, 255, .15); }
+
+/* ---------- Celular ---------- */
+@media (max-width: 640px) {
+  .topo { padding: .7rem 1rem; }
+  .centro { margin: 1.5rem auto; }
+  .abas { display: flex; overflow-x: auto; flex-wrap: nowrap; }
+  .abas button { white-space: nowrap; }
+  .card.hero { padding: 3rem 1.2rem; }
+  #mensagem { left: 1rem; max-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
