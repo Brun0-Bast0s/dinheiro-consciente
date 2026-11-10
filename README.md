@@ -4,8 +4,7 @@
 
 - **Autor:** Bruno da Silva Bastos
 - **Curso/Disciplina:** Técnico — Projeto Web
-- **Status:** 🚧 Entrega 1 — Problema e estrutura inicial
-- **Status:** 🚧 Entrega 2 — Banco de dados e autenticação
+- **Status:** 🚧 Entrega 3 — CRUD completo, integração e permissões
 
 ---
 
@@ -144,18 +143,19 @@ Visitante → Cadastro/Login → JWT → Painel → Transações / Metas / Conte
 dinheiro-consciente/
 ├── backend/
 │   ├── src/
-│   │   ├── routes/         # authRoutes.js, usuarioRoutes.js
-│   │   ├── controllers/    # authController.js, usuarioController.js
+│   │   ├── routes/         # auth, usuario, transacao, categoria, meta, limite
+│   │   ├── controllers/    # regras de negócio e validações de cada rota
 │   │   ├── middlewares/    # auth.js, autorizar.js, errorHandler.js
 │   │   ├── database/       # connection.js (conexão com o MySQL)
+│   │   ├── utils/          # validacoes.js (datas, valores, ids)
 │   │   ├── app.js          # Configuração do Express
 │   │   └── server.js       # Inicialização do servidor
 │   ├── package.json
 │   └── .env.example        # Modelo das variáveis de ambiente
 ├── frontend/
-│   ├── css/
-│   ├── js/
-│   ├── pages/
+│   ├── css/style.css
+│   ├── js/                 # api.js (Fetch + sessão), login.js, cadastro.js, painel.js
+│   ├── pages/              # login.html, cadastro.html, painel.html
 │   └── index.html
 ├── sql/
 │   └── schema.sql          # Script do banco de dados
@@ -197,9 +197,8 @@ O banco `dinheiro_consciente` (MySQL) está no arquivo [`sql/schema.sql`](sql/sc
    npm install
    npm run dev
    ```
-5. Teste em `http://localhost:3000/api/saude`.
-
-6. No arquivo `.env`, defina `DB_PASSWORD` (senha do seu MySQL) e `JWT_SECRET` (uma frase longa e secreta).
+5. No arquivo `.env`, defina `DB_PASSWORD` (senha do seu MySQL) e `JWT_SECRET` (uma frase longa e secreta).
+6. Abra **http://localhost:3000** no navegador (o servidor entrega o front-end) e teste a API em `http://localhost:3000/api/saude`.
 
 ### 12. Como testar
 
@@ -211,7 +210,7 @@ O banco `dinheiro_consciente` (MySQL) está no arquivo [`sql/schema.sql`](sql/sc
    ```
    e faça login de novo para gerar um token com o novo perfil.
 
-## 13. Rotas da API (Entrega 2)
+## 13. Rotas da API (Entregas 2 e 3)
 
 | Método | Rota | Acesso | Descrição |
 |---|---|---|---|
@@ -221,6 +220,26 @@ O banco `dinheiro_consciente` (MySQL) está no arquivo [`sql/schema.sql`](sql/sc
 | GET | `/api/auth/perfil` | Logado | Dados do usuário logado |
 | GET | `/api/usuarios` | Admin | Lista usuários |
 | PUT | `/api/usuarios/:id/perfil` | Admin | Altera o perfil de um usuário |
+| GET | `/api/transacoes` | Logado | Lista **suas** transações (filtros `mes`, `tipo`, `categoria_id`) |
+| GET | `/api/transacoes/resumo?mes=AAAA-MM` | Logado | Receitas, despesas, saldo e alertas do mês |
+| GET | `/api/transacoes/:id` | Logado (dono) | Busca uma transação |
+| POST | `/api/transacoes` | Logado | Cadastra transação |
+| PUT | `/api/transacoes/:id` | Logado (dono) | Atualiza transação |
+| DELETE | `/api/transacoes/:id` | Logado (dono) | Exclui transação |
+| GET | `/api/categorias` | Logado | Lista categorias |
+| POST / PUT / DELETE | `/api/categorias[/:id]` | Admin | Gerencia categorias |
+| GET / POST | `/api/metas` | Logado | Lista / cria suas metas |
+| GET / PUT / DELETE | `/api/metas/:id` | Logado (dono) | Busca / atualiza / exclui meta |
+| GET | `/api/limites` | Logado | Lista seus limites por categoria |
+| PUT / DELETE | `/api/limites/:categoria_id` | Logado | Define (cria ou atualiza) / remove limite |
+
+### Regras de negócio implementadas na API (Entrega 3)
+- Cada usuário só vê, edita e exclui as **suas** transações, metas e limites (`WHERE usuario_id` em todas as consultas); registro de outra pessoa retorna 404.
+- Valor da transação > 0, tipo `receita`/`despesa`, data real e categoria existente **do mesmo tipo** da transação.
+- Alerta de risco de endividamento quando despesas > receitas no mês.
+- Aviso quando uma categoria passa do limite mensal definido pelo usuário.
+- Progresso da meta calculado em % e limitado a 100% (valor guardado não pode passar do valor da meta).
+- Categoria já usada em transações não pode ser excluída (409). Somente o admin gerencia categorias.
 
 
 ---
@@ -231,7 +250,7 @@ O banco `dinheiro_consciente` (MySQL) está no arquivo [`sql/schema.sql`](sql/sc
 |---|---|---|
 | 1 | Problema, proposta e estrutura inicial | ✅ Entregue |
 | 2 | Banco de dados, cadastro, login e JWT | ✅ Entregue |
-| 3 | CRUD, integração e permissões | ⏳ |
+| 3 | CRUD, integração e permissões | ✅ Entregue |
 | 4 | Projeto completo, documentação e apresentação | ⏳ |
 
 ---
