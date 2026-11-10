@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro - Dinheiro Consciente</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="card centro">
+    <h2>💰 Criar conta</h2>
+    <form id="form-cadastro">
+      <div class="campo"><label for="nome">Nome</label><input id="nome" required maxlength="100"></div>
+      <div class="campo"><label for="email">E-mail</label><input id="email" type="email" required></div>
+      <div class="campo"><label for="senha">Senha (mínimo 6 caracteres)</label><input id="senha" type="password" minlength="6" required></div>
+      <button class="btn" type="submit">Cadastrar</button>
+    </form>
+    <p class="pequeno">Já tem conta? <a href="login.html">Entrar</a> · <a href="../index.html">Início</a></p>
+  </div>
+  <script src="../js/api.js"></script>
+  <script src="../js/cadastro.js"></script>
+</body>
+</html>

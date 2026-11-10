@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel - Dinheiro Consciente</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <h1>💰 Dinheiro Consciente</h1>
+    <div class="usuario">
+      <span id="nome-usuario"></span>
+      <span class="selo" id="perfil-usuario"></span>
+      <button class="btn sec mini" id="btn-sair">Sair</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="abas" id="abas">
+      <button data-aba="resumo" class="ativa">Resumo</button>
+      <button data-aba="transacoes">Transações</button>
+      <button data-aba="metas">Metas</button>
+      <button data-aba="limites">Limites</button>
+      <button data-aba="admin" id="aba-admin-btn" class="oculto">Administração</button>
+    </nav>
+
+    <!-- RESUMO -->
+    <section id="aba-resumo">
+      <div class="card">
+        <div class="campo" style="max-width:220px"><label for="resumo-mes">Mês</label><input type="month" id="resumo-mes"></div>
+      </div>
+      <div class="indicadores">
+        <div class="indicador"><span>Receitas</span><strong class="receita" id="ind-receitas">-</strong></div>
+        <div class="indicador"><span>Despesas</span><strong class="despesa" id="ind-despesas">-</strong></div>
+        <div class="indicador"><span>Saldo</span><strong id="ind-saldo">-</strong></div>
+      </div>
+      <div id="alertas"></div>
+      <div class="card">
+        <h3>Despesas por categoria</h3>
+        <div class="tabela-scroll"><table>
+          <thead><tr><th>Categoria</th><th>Gasto</th><th>Limite</th></tr></thead>
+          <tbody id="tabela-resumo"></tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <!-- TRANSACOES -->
+    <section id="aba-transacoes" class="oculto">
+      <div class="card">
+        <h3 id="titulo-form-transacao">Nova transação</h3>
+        <form id="form-transacao">
+          <input type="hidden" id="t-id">
+          <div class="grade">
+            <div><label for="t-tipo">Tipo</label>
+              <select id="t-tipo"><option value="despesa">Despesa</option><option value="receita">Receita</option></select></div>
+            <div><label for="t-categoria">Categoria</label><select id="t-categoria" required></select></div>
+            <div><label for="t-valor">Valor (R$)</label><input id="t-valor" type="number" step="0.01" min="0.01" required></div>
+            <div><label for="t-data">Data</label><input id="t-data" type="date" required></div>
+            <div><label for="t-descricao">Descrição</label><input id="t-descricao" maxlength="200"></div>
+          </div>
+          <div class="acoes" style="margin-top:.8rem">
+            <button class="btn" type="submit" id="btn-salvar-transacao">Salvar</button>
+            <button class="btn sec oculto" type="button" id="btn-cancelar-transacao">Cancelar edição</button>
+          </div>
+        </form>
+      </div>
+      <div class="card">
+        <div class="grade" style="margin-bottom:.8rem">
+          <div><label for="f-mes">Filtrar por mês</label><input type="month" id="f-mes"></div>
+          <div><label for="f-tipo">Filtrar por tipo</label>
+            <select id="f-tipo"><option value="">Todos</option><option value="receita">Receitas</option><option value="despesa">Despesas</option></select></div>
+        </div>
+        <div class="tabela-scroll"><table>
+          <thead><tr><th>Data</th><th>Tipo</th><th>Categoria</th><th>Descrição</th><th>Valor</th><th></th></tr></thead>
+          <tbody id="tabela-transacoes"></tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <!-- METAS -->
+    <section id="aba-metas" class="oculto">
+      <div class="card">
+        <h3 id="titulo-form-meta">Nova meta</h3>
+        <form id="form-meta">
+          <input type="hidden" id="m-id">
+          <div class="grade">
+            <div><label for="m-titulo">Título</label><input id="m-titulo" maxlength="100" required></div>
+            <div><label for="m-valor-meta">Valor da meta (R$)</label><input id="m-valor-meta" type="number" step="0.01" min="0.01" required></div>
+            <div><label for="m-valor-atual">Já guardado (R$)</label><input id="m-valor-atual" type="number" step="0.01" min="0" value="0"></div>
+            <div><label for="m-prazo">Prazo (opcional)</label><input id="m-prazo" type="date"></div>
+          </div>
+          <div class="acoes" style="margin-top:.8rem">
+            <button class="btn" type="submit">Salvar</button>
+            <button class="btn sec oculto" type="button" id="btn-cancelar-meta">Cancelar edição</button>
+          </div>
+        </form>
+      </div>
+      <div id="lista-metas"></div>
+    </section>
+
+    <!-- LIMITES -->
+    <section id="aba-limites" class="oculto">
+      <div class="card">
+        <h3>Limite mensal por categoria</h3>
+        <p class="pequeno">Se o gasto do mês passar do limite, o Resumo mostra um aviso.</p>
+        <form id="form-limite">
+          <div class="grade">
+            <div><label for="l-categoria">Categoria de despesa</label><select id="l-categoria" required></select></div>
+            <div><label for="l-valor">Limite (R$)</label><input id="l-valor" type="number" step="0.01" min="0.01" required></div>
+            <div><button class="btn" type="submit">Salvar limite</button></div>
+          </div>
+        </form>
+      </div>
+      <div class="card"><div class="tabela-scroll"><table>
+        <thead><tr><th>Categoria</th><th>Limite</th><th></th></tr></thead>
+        <tbody id="tabela-limites"></tbody>
+      </table></div></div>
+    </section>
+
+    <!-- ADMIN -->
+    <section id="aba-admin" class="oculto">
+      <div class="card">
+        <h3>Categorias</h3>
+        <form id="form-categoria">
+          <input type="hidden" id="c-id">
+          <div class="grade">
+            <div><label for="c-nome">Nome</label><input id="c-nome" maxlength="60" required></div>
+            <div><label for="c-tipo">Tipo</label>
+              <select id="c-tipo"><option value="despesa">Despesa</option><option value="receita">Receita</option></select></div>
+            <div class="acoes">
+              <button class="btn" type="submit">Salvar</button>
+              <button class="btn sec oculto" type="button" id="btn-cancelar-categoria">Cancelar</button>
+            </div>
+          </div>
+        </form>
+        <div class="tabela-scroll" style="margin-top:.8rem"><table>
+          <thead><tr><th>Nome</th><th>Tipo</th><th></th></tr></thead>
+          <tbody id="tabela-categorias"></tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <h3>Usuários</h3>
+        <div class="tabela-scroll"><table>
+          <thead><tr><th>Nome</th><th>E-mail</th><th>Perfil</th><th></th></tr></thead>
+          <tbody id="tabela-usuarios"></tbody>
+        </table></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/painel.js"></script>
+</body>
+</html>
